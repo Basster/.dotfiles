@@ -18,8 +18,6 @@
     hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
     type = cat-file -t
     dump = cat-file -p
-[gui]
-	recentrepo = D:/Development/ncp-werder-bremen-frontend
 [http]
 	proxy = http://http-proxy.intern.neusta.de:3128
 [https]
