@@ -1,0 +1,26 @@
+[user]
+	name = Ole Rößner
+	email = o.roessner@neusta.de
+[merge]
+	ff = false
+[push]
+	default = current
+[core]
+	autocrlf = input
+	excludesfile = /home/oroessner/.gitignore_global
+	editor = vim
+[alias]
+    pl = pull --rebase
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
+[gui]
+	recentrepo = D:/Development/ncp-werder-bremen-frontend
+[http]
+	proxy = http://http-proxy.intern.neusta.de:3128
+[https]
+	proxy = http://https-proxy.intern.neusta.de:3128

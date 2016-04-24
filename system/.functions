@@ -1,0 +1,23 @@
+#!/bin/bash
+
+function pxon {
+	proxyon
+	git config --global http.proxy http://http-proxy.intern.neusta.de:3128
+	git config --global https.proxy http://https-proxy.intern.neusta.de:3128
+	
+	npm config set proxy http://http-proxy.intern.neusta.de:3128
+	npm config set https-proxy http://https-proxy.intern.neusta.de:3128
+
+	echo "Proxy activated!"
+}
+
+function pxof {
+	proxyoff
+	git config --global --unset http.proxy
+	git config --global --unset https.proxy
+
+	npm config delete proxy
+	npm config delete https-proxy
+
+	echo "Proxy deactivated!"
+}
