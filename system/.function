@@ -1,10 +1,17 @@
 #!/bin/bash
 
 function pxon {
-	proxyon
+	export http_proxy=http://http-proxy.intern.neusta.de:3128
+	export https_proxy=http://https-proxy.intern.neusta.de:3128
+	export ftp_proxy=http://ftp-proxy.intern.neusta.de:3128
+	export HTTP_PROXY=$http_proxy
+	export HTTPS_PROXY=$https_proxy
+	export FTP_PROXY=$ftp_proxy
+	export no_proxy=.vm,.dev,neusta.de,localhost,127.0.0.1,172.32.
+
 	git config --global http.proxy http://http-proxy.intern.neusta.de:3128
 	git config --global https.proxy http://https-proxy.intern.neusta.de:3128
-	
+
 	npm config set proxy http://http-proxy.intern.neusta.de:3128
 	npm config set https-proxy http://https-proxy.intern.neusta.de:3128
 
@@ -12,7 +19,14 @@ function pxon {
 }
 
 function pxof {
-	proxyoff
+	unset http_proxy
+	unset https_proxy
+	unset ftp_proxy
+	unset HTTP_PROXY
+	unset HTTPS_PROXY
+	unset FTP_PROXY
+	unset no_proxy
+
 	git config --global --unset http.proxy
 	git config --global --unset https.proxy
 
