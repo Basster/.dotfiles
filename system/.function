@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function pxon {
+function proxyon {
 	export http_proxy=http://http-proxy.intern.neusta.de:3128
 	export https_proxy=http://https-proxy.intern.neusta.de:3128
 	export ftp_proxy=http://ftp-proxy.intern.neusta.de:3128
@@ -9,16 +9,10 @@ function pxon {
 	export FTP_PROXY=$ftp_proxy
 	export no_proxy=.vm,.dev,neusta.de,localhost,127.0.0.1,172.32.
 
-	git config --global http.proxy http://http-proxy.intern.neusta.de:3128
-	git config --global https.proxy http://https-proxy.intern.neusta.de:3128
-
-	npm config set proxy http://http-proxy.intern.neusta.de:3128
-	npm config set https-proxy http://https-proxy.intern.neusta.de:3128
-
-	echo "Proxy activated!"
+	echo "System proxy activated"
 }
 
-function pxof {
+function proxyoff {
 	unset http_proxy
 	unset https_proxy
 	unset ftp_proxy
@@ -27,11 +21,35 @@ function pxof {
 	unset FTP_PROXY
 	unset no_proxy
 
+	echo "System proxy deactivated"
+}
+
+function pxon {
+
+	proxyon
+	
+	git config --global http.proxy http://http-proxy.intern.neusta.de:3128
+	git config --global https.proxy http://https-proxy.intern.neusta.de:3128
+
+	echo "Git proxy activated"
+
+	npm config set proxy http://http-proxy.intern.neusta.de:3128
+	npm config set https-proxy http://https-proxy.intern.neusta.de:3128
+
+	echo "NPM proxy activated"
+}
+
+function pxof {
+
+	proxyoff
+	
 	git config --global --unset http.proxy
 	git config --global --unset https.proxy
+
+	echo "Git proxy deactivated"
 
 	npm config delete proxy
 	npm config delete https-proxy
 
-	echo "Proxy deactivated!"
+	echo "NPM proxy deactivated!"
 }
