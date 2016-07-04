@@ -24,7 +24,25 @@ function proxyoff {
 	echo "System proxy deactivated"
 }
 
+function docker-pxon {
+	sudo ln -s /opt/docker-config/http-proxy.conf /etc/systemd/system/docker.service.d/http-proxy.conf
+	sudo systemctl daemon-reload
+	sudo systemctl restart docker
+
+	echo "Docker proxy activated"
+}
+
+function docker-pxof {
+	sudo rm -f /etc/systemd/system/docker.service.d/http-proxy.conf
+	sudo systemctl daemon-reload
+	sudo systemctl restart docker
+
+	echo "Docker proxy deactivated"
+}
+
 function pxon {
+
+	pxof
 
 	proxyon
 	
@@ -51,5 +69,9 @@ function pxof {
 	npm config delete proxy
 	npm config delete https-proxy
 
-	echo "NPM proxy deactivated!"
+	echo "NPM proxy deactivated"
+}
+
+function perf {
+  curl -o /dev/null -s -w "%{time_connect} + %{time_starttransfer} = %{time_total}\n" "$1"
 }
