@@ -48,3 +48,8 @@ alias got='git '
 alias get='git '
 
 alias sudo='sudo -E '
+
+alias dcstart='docker-compose start'
+alias dcstop='docker-compose stop'
+alias dcrebuild='docker-compose up --build'
+alias dcup='docker-compose up'

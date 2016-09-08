@@ -8,6 +8,8 @@ function proxyon {
 	export HTTPS_PROXY=$https_proxy
 	export FTP_PROXY=$ftp_proxy
 	export no_proxy=.vm,.dev,neusta.de,localhost,127.0.0.1,172.32.
+	export HTTP_PROXY_REQUEST_FULLURI=true
+	export HTTPS_PROXY_REQUEST_FULLURI=true
 
 	echo "System proxy activated"
 }
@@ -20,6 +22,8 @@ function proxyoff {
 	unset HTTPS_PROXY
 	unset FTP_PROXY
 	unset no_proxy
+	unset HTTP_PROXY_REQUEST_FULLURI
+	unset HTTPS_PROXY_REQUEST_FULLURI
 
 	echo "System proxy deactivated"
 }
