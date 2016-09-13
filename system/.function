@@ -1,17 +1,19 @@
 #!/bin/bash
 
 function proxyon {
-	export http_proxy=http://http-proxy.intern.neusta.de:3128
-	export https_proxy=http://https-proxy.intern.neusta.de:3128
-	export ftp_proxy=http://ftp-proxy.intern.neusta.de:3128
-	export HTTP_PROXY=$http_proxy
-	export HTTPS_PROXY=$https_proxy
-	export FTP_PROXY=$ftp_proxy
-	export no_proxy=.vm,.dev,neusta.de,localhost,127.0.0.1,172.32.
-	export HTTP_PROXY_REQUEST_FULLURI=true
-	export HTTPS_PROXY_REQUEST_FULLURI=true
+	if [[ ! "$http_proxy" ]]; then
+		export http_proxy=http://http-proxy.intern.neusta.de:3128
+		export https_proxy=http://https-proxy.intern.neusta.de:3128
+		export ftp_proxy=http://ftp-proxy.intern.neusta.de:3128
+		export HTTP_PROXY=$http_proxy
+		export HTTPS_PROXY=$https_proxy
+		export FTP_PROXY=$ftp_proxy
+		export no_proxy=.vm,.dev,neusta.de,localhost,127.0.0.1,172.32.
+		export HTTP_PROXY_REQUEST_FULLURI=true
+		export HTTPS_PROXY_REQUEST_FULLURI=true
 
-	echo "System proxy activated"
+		echo "System proxy activated"
+	fi
 }
 
 function proxyoff {
@@ -29,51 +31,79 @@ function proxyoff {
 }
 
 function docker-pxon {
-	sudo ln -s /opt/docker-config/http-proxy.conf /etc/systemd/system/docker.service.d/http-proxy.conf
-	sudo systemctl daemon-reload
-	sudo systemctl restart docker
+	proxy-conf=/etc/systemd/system/docker.service.d/http-proxy.conf
 
-	echo "Docker proxy activated"
+	if [ ! -L proxy-conf ]; then
+		sudo ln -s /opt/docker-config/http-proxy.conf $proxy-conf
+		sudo systemctl daemon-reload
+		sudo systemctl restart docker
+
+		echo "Docker proxy activated"
+	fi
 }
 
 function docker-pxof {
-	sudo rm -f /etc/systemd/system/docker.service.d/http-proxy.conf
-	sudo systemctl daemon-reload
-	sudo systemctl restart docker
+	proxy-conf=/etc/systemd/system/docker.service.d/http-proxy.conf
 
-	echo "Docker proxy deactivated"
+	if [ -L proxy-conf ]; then
+		sudo rm -f /etc/systemd/system/docker.service.d/http-proxy.conf
+		sudo systemctl daemon-reload
+		sudo systemctl restart docker
+
+		echo "Docker proxy deactivated"
+	fi
+}
+
+function git-pxon {
+	git_proxy=$(git config --get http.proxy)
+	if [ -z "$git_proxy" ]; then
+		git config --global http.proxy http://http-proxy.intern.neusta.de:3128
+		git config --global https.proxy http://https-proxy.intern.neusta.de:3128
+
+		echo "Git proxy activated"
+	fi
+}
+
+function git-pxof {
+	git config --global --unset http.proxy
+	git config --global --unset https.proxy
+
+	echo "Git proxy deactivated"
+}
+
+function npm-pxon {
+	git_proxy=$(npm config get proxy)
+	if [ -z "$git_proxy" ] || [ "$git_proxy" == "null" ]; then
+		npm config set proxy http://http-proxy.intern.neusta.de:3128
+		npm config set https-proxy http://https-proxy.intern.neusta.de:3128
+
+		echo "NPM proxy activated"
+	fi
+}
+
+function npm-pxof {
+	npm config delete proxy
+	npm config delete https-proxy
+
+	echo "NPM proxy deactivated"
 }
 
 function pxon {
 
-	pxof
-
 	proxyon
 	
-	git config --global http.proxy http://http-proxy.intern.neusta.de:3128
-	git config --global https.proxy http://https-proxy.intern.neusta.de:3128
+	git-pxon
 
-	echo "Git proxy activated"
-
-	npm config set proxy http://http-proxy.intern.neusta.de:3128
-	npm config set https-proxy http://https-proxy.intern.neusta.de:3128
-
-	echo "NPM proxy activated"
+	npm-pxon	
 }
 
 function pxof {
 
 	proxyoff
 	
-	git config --global --unset http.proxy
-	git config --global --unset https.proxy
+	git-pxof
 
-	echo "Git proxy deactivated"
-
-	npm config delete proxy
-	npm config delete https-proxy
-
-	echo "NPM proxy deactivated"
+	npm-pxof
 }
 
 function perf {
