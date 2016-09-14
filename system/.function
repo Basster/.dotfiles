@@ -31,10 +31,10 @@ function proxyoff {
 }
 
 function docker-pxon {
-	proxy-conf=/etc/systemd/system/docker.service.d/http-proxy.conf
+	proxy_conf="/etc/systemd/system/docker.service.d/http-proxy.conf"
 
-	if [ ! -L proxy-conf ]; then
-		sudo ln -s /opt/docker-config/http-proxy.conf $proxy-conf
+	if [ ! -L $proxy_conf ]; then
+		sudo ln -s /opt/docker-config/http-proxy.conf $proxy_conf
 		sudo systemctl daemon-reload
 		sudo systemctl restart docker
 
@@ -43,9 +43,9 @@ function docker-pxon {
 }
 
 function docker-pxof {
-	proxy-conf=/etc/systemd/system/docker.service.d/http-proxy.conf
+	proxy_conf="/etc/systemd/system/docker.service.d/http-proxy.conf"
 
-	if [ -L proxy-conf ]; then
+	if [ -L $proxy_conf ]; then
 		sudo rm -f /etc/systemd/system/docker.service.d/http-proxy.conf
 		sudo systemctl daemon-reload
 		sudo systemctl restart docker
