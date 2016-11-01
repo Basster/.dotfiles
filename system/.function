@@ -109,3 +109,7 @@ function pxof {
 function perf {
   curl -o /dev/null -s -w "%{time_connect} + %{time_starttransfer} = %{time_total}\n" "$1"
 }
+
+function worktime {
+	/usr/bin/php7.0 /home/oroessner/Apps/heartbeat/bin/heartbeat.php statistic
+}
