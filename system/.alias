@@ -48,8 +48,14 @@ alias got='git '
 alias get='git '
 
 alias sudo='sudo -E '
+alias xx='exit'
 
-alias dcstart='docker-compose start'
+alias dcstart='docker-compose up --build -d'
 alias dcstop='docker-compose stop'
 alias dcrebuild='docker-compose up --build'
 alias dcup='docker-compose up'
+alias dc='docker-compose '
+
+alias codecept='./vendor/bin/codecept '
+alias diclean='docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")'
+

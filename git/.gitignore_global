@@ -1,6 +1,10 @@
 # IntelliJ Project
 .idea/*
 
+# PHP CS Fixer
+.php_cs.cache
+.php_cs.cache?
+
 # Temp and swap files
 *~
 *.swp
@@ -23,5 +27,7 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
+composer.phar
 
 atlassian-ide-plugin.xml
