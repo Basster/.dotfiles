@@ -1,8 +1,6 @@
 [user]
 	name = Ole Rößner
 	email = o.roessner@neusta.de
-[merge]
-	ff = false
 [push]
 	default = current
 [core]

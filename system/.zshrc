@@ -52,7 +52,7 @@ DEFAULT_USER="oroessner"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker)
+plugins=(git docker kubectl)
 
 # source ~/.bashrc
 source $ZSH/oh-my-zsh.sh
@@ -106,6 +106,10 @@ done
 
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.platformsh/bin:$PATH"
+export PATH=$PATH:/usr/local/go/bin
+#[ "$BASH" ] || [ "$ZSH" ] && . "$HOME/.platformsh/shell-config.rc" 2>/dev/null || true
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -156,3 +160,8 @@ _ng_completion () {
 
 compctl -K _ng_completion ng
 ###-end-ng-completion###
+
+if [ $commands[minikube]  ]; then
+	source <(minikube completion zsh)
+fi
+
