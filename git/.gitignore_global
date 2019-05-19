@@ -1,9 +1,18 @@
 # IntelliJ Project
 .idea/*
 
+# VSCode
+.vscode/*
+
+# Sonar Scanner
+.scannerwork/
+
 # PHP CS Fixer
 .php_cs.cache
 .php_cs.cache?
+
+# phpunit as phar
+phpunit.phar
 
 # Temp and swap files
 *~
@@ -29,5 +38,6 @@ ehthumbs.db
 Thumbs.db
 
 composer.phar
+php-cs-fixer.phar
 
 atlassian-ide-plugin.xml

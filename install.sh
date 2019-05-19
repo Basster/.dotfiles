@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ln -sv ~/.dotfiles/system/.bashrc ~
+# ln -sv ~/.dotfiles/system/.bashrc ~
 ln -sv ~/.dotfiles/system/.zshrc ~
 ln -sv ~/.dotfiles/system/.inputrc ~
 ln -sv ~/.dotfiles/git/.gitconfig ~

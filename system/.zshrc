@@ -1,167 +1,167 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Ansible managed
+# zsh version: 5.4.2
+# antigen version: 2.2.2
 
-# Path to your oh-my-zsh installation.
-  export ZSH=/home/oroessner/.oh-my-zsh
+export TERM="xterm-256color"
+export EDITOR="vim"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
-DEFAULT_USER="oroessner"
+HIST_STAMPS="yyyy-mm-dd"
+UPDATE_ZSH_DAYS="30"
+COMPLETION_WAITING_DOTS="true"
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# ADOTDIR="$HOME/.antigen"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+ANTIGEN_BUNDLES="$HOME/.antigen/bundles"
+ANTIGEN_PLUGIN_UPDATE_DAYS="30"
+ANTIGEN_SYSTEM_UPDATE_DAYS="30"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+source "$HOME/.antigen/antigen/antigen.zsh"
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+antigen use oh-my-zsh
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker kubectl)
-
-# source ~/.bashrc
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-
-# Resolve DOTFILES_DIR (assuming ~/.dotfiles on distros without readlink and/or $BASH_SOURCE/$0)
-
-READLINK=$(which greadlink || which readlink)
-CURRENT_SCRIPT=$BASH_SOURCE
-
-if [[ -n $CURRENT_SCRIPT && -x "$READLINK" ]]; then
-  SCRIPT_PATH=$($READLINK -f "$CURRENT_SCRIPT")
-  DOTFILES_DIR=$(dirname "$(dirname "$SCRIPT_PATH")")
-elif [ -d "$HOME/.dotfiles" ]; then
-  DOTFILES_DIR="$HOME/.dotfiles"
-else
-  echo "Unable to find dotfiles, exiting."
-  return # `exit 1` would quit the shell itself
+antigen bundle command-not-found
+antigen bundle docker
+antigen bundle docker-compose
+antigen bundle composer
+antigen bundle git
+antigen bundle kubectl
+antigen bundle vscode
+antigen bundle fancy-ctrl-z
+antigen bundle git-extras
+antigen bundle gnu-utils
+antigen bundle rake
+antigen bundle systemd
+antigen bundle python
+antigen bundle yarn
+antigen bundle zsh_reload
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle popstas/zsh-command-time
+antigen bundle unixorn/autoupdate-antigen.zshplugin
+antigen bundle urbainvaes/fzf-marks
+antigen bundle ytet5uy4/fzf-widgets
+# will fixed in zsh-autosuggestion v0.4 - https://github.com/zsh-users/zsh-autosuggestions/pull/218
+if (( ZSHRC_LOAD_ONCE++ == 0 )); then
+    antigen bundle zdharma/fast-syntax-highlighting@v1.2
 fi
 
-# Finally we can source the dotfiles (order matters)
+POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k/powerlevel9k.zsh-theme
 
-for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,alias,completion,grep,prompt,nvm,rvm,custom}; do
-  [ -f "$DOTFILE" ] && . "$DOTFILE"
-done
+antigen theme bhilburn/powerlevel9k powerlevel9k
 
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"
-export PATH="/usr/local/heroku/bin:$PATH"
-export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/.platformsh/bin:$PATH"
-export PATH=$PATH:/usr/local/go/bin
-#[ "$BASH" ] || [ "$ZSH" ] && . "$HOME/.platformsh/shell-config.rc" 2>/dev/null || true
+antigen apply
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+###
 
-###-begin-ng-completion###
-#
+unsetopt share_history
 
-# ng command completion script
-#   This command supports 3 cases.
-#   1. (Default case) It prints a common completion initialisation for both Bash and Zsh.
-#      It is the result of either calling "ng completion" or "ng completion -a".
-#   2. Produce Bash-only completion: "ng completion -b" or "ng completion --bash".
-#   3. Produce Zsh-only completion: "ng completion -z" or "ng completion --zsh".
-#
-# Usage: . <(ng completion --bash) # place it appropriately in .bashrc or
-#        . <(ng completion --zsh) # find a spot for it in .zshrc
-#
-_ng_completion () {
-  local words cword opts
-  read -Ac words
-  read -cn cword
-  let cword-=1
 
-  case $words[cword] in
-    ng|help) opts="--version -v b build completion doc e e2e eject g generate get help l lint new s serve server set t test v version xi18n" ;;
-   b|build) opts="--aot --app --base-href --delete-output-path --deploy-url --environment --extract-css --i18n-file --i18n-format --locale --output-hashing --output-path --poll --progress --sourcemaps --stats-json --target --vendor-chunk --verbose --watch -a -aot -bh -d -dop -e -ec -i18nFile -i18nFormat -locale -oh -op -poll -pr -sm -statsJson -t -v -vc -w" ;;
-   completion) opts="--all --bash --zsh -a -b -z" ;;
-   doc) opts="--search -s" ;;
-   e|e2e) opts="--aot --app --base-href --config --delete-output-path --deploy-url --disable-host-check --element-explorer --environment --extract-css --hmr --host --i18n-file --i18n-format --live-reload --locale --open --output-hashing --output-path --poll --port --progress --proxy-config --public-host --serve --sourcemaps --specs --ssl --ssl-cert --ssl-key --target --vendor-chunk --verbose --watch --webdriver-update -H -a -aot -bh -c -d -disableHostCheck -dop -e -ec -ee -hmr -i18nFile -i18nFormat -live-reload-client -locale -lr -o -oh -op -p -pc -poll -pr -s -sm -sp -ssl -sslCert -sslKey -t -v -vc -w -wu" ;;
-   eject) opts="--aot --app --base-href --delete-output-path --deploy-url --environment --extract-css --force --i18n-file --i18n-format --locale --output-hashing --output-path --poll --progress --sourcemaps --target --vendor-chunk --verbose --watch -a -aot -bh -d -dop -e -ec -force -i18nFile -i18nFormat -locale -oh -op -poll -pr -sm -t -v -vc -w" ;;
-   g|generate) opts="--dry-run --lint-fix --verbose -d -lf -v" ;;
-   get) opts="--global -global" ;;
-   l|lint) opts="--fix --force --format --type-check -fix -force -format -typeCheck" ;;
-   new) opts="--directory --dry-run --inline-style --inline-template --link-cli --prefix --routing --skip-commit --skip-git --skip-install --skip-tests --source-dir --style --verbose -d -dir -is -it -lc -p -routing -sc -sd -sg -si -st -style -v" ;;
-   s|serve|server) opts="--aot --app --base-href --delete-output-path --deploy-url --disable-host-check --environment --extract-css --hmr --host --i18n-file --i18n-format --live-reload --locale --open --output-hashing --output-path --poll --port --progress --proxy-config --public-host --sourcemaps --ssl --ssl-cert --ssl-key --target --vendor-chunk --verbose --watch -H -a -aot -bh -d -disableHostCheck -dop -e -ec -hmr -i18nFile -i18nFormat -live-reload-client -locale -lr -o -oh -op -p -pc -poll -pr -sm -ssl -sslCert -sslKey -t -v -vc -w" ;;
-   set) opts="--global -g" ;;
-   t|test) opts="--app --browsers --code-coverage --colors --config --log-level --poll --port --progress --reporters --single-run --sourcemaps --watch -a -browsers -c -cc -colors -logLevel -poll -port -progress -reporters -sm -sr -w" ;;
-   --version|-v|v|version) opts="--verbose -verbose" ;;
-   xi18n) opts="--app --i18n-format --locale --out-file --output-path --progress --verbose -a -f -l -of -op -progress -verbose" ;;
-   *) opts="" ;;
-  esac
+autoload -Uz copy-earlier-word
+zle -N copy-earlier-word
 
-  setopt shwordsplit
-  reply=($opts)
-  unset shwordsplit
-}
+# hotkeys
+bindkey '\e[1~' beginning-of-line
+bindkey '\e[4~' end-of-line
+bindkey '^@' fzf-select-widget
+bindkey '^@.' fzf-edit-dotfiles
+bindkey '^@c' fzf-change-directory
+bindkey '^@f' fzf-edit-files
+bindkey '^@k' fzf-kill-processes
+bindkey '^@s' fzf-exec-ssh
+bindkey '^\' fzf-change-recent-directory
+bindkey '^r' fzf-insert-history
+bindkey '^xf' fzf-insert-files
+bindkey '^xd' fzf-insert-directory
+bindkey '^@g' fzf-select-git-widget
+bindkey '^@ga' fzf-git-add-files
+bindkey '^@gc' fzf-git-change-repository
+bindkey '^@gco' fzf-git-checkout-branch
+bindkey '^@gd' fzf-git-delete-branches
+bindkey '^@gh' fzf-select-github-widget
+bindkey '^@ghi' fzf-github-show-issue
+bindkey '^@ghe' fzf-github-edit-issue
+bindkey '^@gho' fzf-github-open-issue
+bindkey '^@ghc' fzf-github-close-issue
+bindkey '^@ghco' fzf-github-comment-issue
+bindkey '^@d' fzf-select-docker-widget
+bindkey '^@dk' fzf-docker-kill-containers
+bindkey '^@dl' fzf-docker-logs-container
+bindkey '^@dr' fzf-docker-remove-containers
+bindkey '^@dri' fzf-docker-remove-images
+bindkey '^@drv' fzf-docker-remove-volumes
+bindkey '^@dsa' fzf-docker-start-containers
+bindkey '^@dso' fzf-docker-stop-containers
+bindkey '^U' autosuggest-accept
 
-compctl -K _ng_completion ng
-###-end-ng-completion###
+# aliases
+alias 'apt-update-list-upgrade'="apt update && apt upgrade --dry-run | grep Inst | sort | fzf && apt upgrade"
+alias 'dfh'="df -h | grep -v docker"
+alias 'ubuntu-release'="lsb_release -a"
 
-if [ $commands[minikube]  ]; then
-	source <(minikube completion zsh)
-fi
+# fzf
+export FZF_TMUX=0
+export FZF_DEFAULT_OPTS="--height 100% --reverse"
 
+# fzf-widgets: fzf-change-reset-dir
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+declare -p FZF_WIDGETS_OPTS > /dev/null 2>&1 && FZF_WIDGETS_OPTS[insert-history]="--exact"
+declare -p FZF_WIDGET_OPTS > /dev/null 2>&1 && FZF_WIDGET_OPTS[insert-history]="--exact"
+
+# zsh-autosuggestions
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=15
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240" # gray highlight
+
+# powerlevel9k
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
+POWERLEVEL9K_STATUS_VERBOSE=0
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs vcs command_execution_time time)
+DEFAULT_USER=$USER
+POWERLEVEL9K_ALWAYS_SHOW_CONTEXT=false
+POWERLEVEL9K_ALWAYS_SHOW_USER=false
+
+POWERLEVEL9K_CUSTOM_COMMAND_TIME="zsh_command_time"
+POWERLEVEL9K_CUSTOM_COMMAND_TIME_BACKGROUND="248"
+POWERLEVEL9K_CUSTOM_COMMAND_TIME_FOREGROUND="000"
+
+# https://github.com/bhilburn/powerlevel9k#command_execution_time
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD="3"
+
+POWERLEVEL9K_PROMPT_ON_NEWLINE=false
+POWERLEVEL9K_RPROMPT_ON_NEWLINE=false
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+
+POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND="255"
+POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND="024"
+POWERLEVEL9K_CONTEXT_REMOTE_FOREGROUND="255"
+POWERLEVEL9K_CONTEXT_REMOTE_BACKGROUND="024"
+POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND="255"
+POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND="124"
+
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="255"
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="240"
+POWERLEVEL9K_DIR_HOME_FOREGROUND="255"
+POWERLEVEL9K_DIR_HOME_BACKGROUND="240"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="255"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="240"
+
+POWERLEVEL9K_VCS_CLEAN_BACKGROUND="100"
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="094"
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND="094"
+POWERLEVEL9K_VCS_CLEAN_FOREGROUND="232"
+POWERLEVEL9K_VCS_MODIFIED_FOREGROUND="232"
+POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND="232"
+
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND="000"
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND="248"
+
+# Aliases
+alias suser='su -'
+
+# user configs
+[[ -r /etc/zsh/zshrc.local ]] && source /etc/zsh/zshrc.local
+[[ -r "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"

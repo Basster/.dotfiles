@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #
 # Some example alias instructions
 # If these are enabled they will be used instead of any instructions
@@ -16,24 +18,24 @@ alias du='du -h'
 #
 # Misc :)
 alias less='less -r'                          # raw control characters
-alias whence='type -a'                        # where, of a sort
+#alias whence='type -a'                        # where, of a sort
 # alias grep='grep --color'                     # show differences in colour
 # alias egrep='egrep --color=auto'              # show differences in colour
 # alias fgrep='fgrep --color=auto'              # show differences in colour
 #
 # Some shortcuts for different directory listings
-alias ls='ls -hF --color=tty'                 # classify files in colour
-alias dir='ls --color=auto --format=vertical'
-alias vdir='ls --color=auto --format=long'
-alias ..='cd ..'
-alias ll='ls -la'                              # long list
-alias la='ls -A'                              # all but . and ..
-alias l='ls -CF'                              #
+#alias ls='ls -hF --color=tty'                 # classify files in colour
+#alias dir='ls --color=auto --format=vertical'
+#alias vdir='ls --color=auto --format=long'
+#alias ..='cd ..'
+#alias ll='ls -la'                              # long list
+#alias la='ls -A'                              # all but . and ..
+#alias l='ls -CF'                              #
 
 #alias subl="/D/Apps/Sublime\ Text\ 3/sublime_text.exe"
-alias vup='vagrant up'
-alias vhalt='vagrant halt'
-alias vstat='vagrant status'
+#alias vup='vagrant up'
+#alias vhalt='vagrant halt'
+#alias vstat='vagrant status'
 
 alias gs='git status '
 #alias ga='git add '
@@ -44,19 +46,28 @@ alias gs='git status '
 #alias gk='gitk --all&'
 #alias gx='gitx --all'
 
-alias got='git '
-alias get='git '
+#alias got='git '
+#alias get='git '
 
-alias sudo='sudo -E '
+#alias sudo='sudo -E '
 alias xx='exit'
 
-alias dcstart='docker-compose up --build -d'
+# docker stuff
+alias dcstart='docker-compose up --build -d '
 alias dcstop='docker-compose stop'
-alias dcrebuild='docker-compose up --build'
-alias dcup='docker-compose up'
+alias dcrebuild='docker-compose up --build '
+alias dcup='docker-compose up -d '
 alias dc='docker-compose '
 alias dcr='docker-compose run -u "$UID" '
+alias dps='docker ps'
+alias dcps='docker-compose ps'
 
 alias codecept='./vendor/bin/codecept '
 alias diclean='docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")'
 
+alias uupdate='sudo apt update && sudo apt upgrade -y --autoremove'
+alias fw='ssh firewall'
+
+function tts() {
+  ~/apps/simple-google-tts/simple_google_tts de "$1"
+}
